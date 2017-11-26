@@ -4,6 +4,7 @@ import * as React from 'react';
 import * as Dom from 'react-dom';
 import * as PIXI from 'pixi.js';
 import {vec2} from 'gl-matrix';
+import * as Data from './data';
 
 class App extends React.Component<any, any>
 {
