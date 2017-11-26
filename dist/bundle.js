@@ -30483,6 +30483,13 @@ var App = /** @class */ (function (_super) {
             }
         };
         var f = function () {
+            _this.graphics.beginFill(0xFF3300);
+            _this.graphics.lineStyle(4, 0xffd900, 1);
+            _this.graphics.moveTo(50, 50);
+            _this.graphics.lineTo(250, 50);
+            _this.graphics.lineTo(100, 100);
+            _this.graphics.lineTo(50, 50);
+            _this.graphics.endFill();
             renderer.render(_this.stage);
             requestAnimationFrame(f);
         };

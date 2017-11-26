@@ -53,6 +53,13 @@ class App extends React.Component<any, any>
 
         let f = () =>
         {
+            this.graphics.beginFill(0xFF3300);
+            this.graphics.lineStyle(4, 0xffd900, 1);
+            this.graphics.moveTo(50,50);
+            this.graphics.lineTo(250, 50);
+            this.graphics.lineTo(100, 100);
+            this.graphics.lineTo(50, 50);
+            this.graphics.endFill();
             renderer.render(this.stage);
             requestAnimationFrame(f);
         };
