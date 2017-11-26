@@ -6,6 +6,9 @@ import * as PIXI from 'pixi.js';
 import {vec2} from 'gl-matrix';
 import * as Data from './data';
 
+let store = new Data.Store();
+store.dispatch({type:Data.GOTOPHASE, phase:Data.Phase.Game});
+
 class App extends React.Component<any, any>
 {
     graphics:PIXI.Graphics;

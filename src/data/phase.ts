@@ -1,4 +1,4 @@
-export enum State
+export enum Phase
 {
     Title = "TITLE",
     Game = "GAME",

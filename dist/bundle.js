@@ -30453,6 +30453,9 @@ __webpack_require__(182);
 var React = __webpack_require__(89);
 var Dom = __webpack_require__(199);
 var PIXI = __webpack_require__(286);
+var Data = __webpack_require__(393);
+var store = new Data.Store();
+store.dispatch({ type: Data.GOTOPHASE, phase: Data.Phase.Game });
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
     function App(props) {
@@ -63837,6 +63840,109 @@ var TimeLimiter = function () {
 
 exports.default = TimeLimiter;
 //# sourceMappingURL=TimeLimiter.js.map
+
+/***/ }),
+/* 387 */,
+/* 388 */,
+/* 389 */,
+/* 390 */,
+/* 391 */,
+/* 392 */,
+/* 393 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+function __export(m) {
+    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
+}
+Object.defineProperty(exports, "__esModule", { value: true });
+var reducer_1 = __webpack_require__(394);
+__export(__webpack_require__(395));
+__export(__webpack_require__(396));
+var Store = /** @class */ (function () {
+    function Store() {
+        this.state = undefined;
+        this.dispatch({ type: undefined });
+    }
+    Store.prototype.getState = function () {
+        return this.state;
+    };
+    Store.prototype.dispatch = function (action) {
+        this.state = reducer_1.default(this.state, action);
+        console.log(JSON.stringify(this.state));
+    };
+    return Store;
+}());
+exports.Store = Store;
+
+
+/***/ }),
+/* 394 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var index_1 = __webpack_require__(393);
+exports.default = function (state, action) {
+    if (state === void 0) { state = { phase: index_1.Phase.Title }; }
+    switch (action.type) {
+        case index_1.GOTOPHASE:
+            return __assign({}, state, { phase: action.phase });
+        default:
+            return state;
+    }
+};
+
+
+/***/ }),
+/* 395 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Phase;
+(function (Phase) {
+    Phase["Title"] = "TITLE";
+    Phase["Game"] = "GAME";
+    Phase["Dead"] = "DEAD";
+    Phase["Highscore"] = "HIGHSCORE";
+})(Phase = exports.Phase || (exports.Phase = {}));
+
+
+/***/ }),
+/* 396 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.GOTOPHASE = "GOTOPHASE";
+exports.SPAWNPLAYER = "SPAWNPLAYER";
+exports.SPAWNZOMBIE = "SPAWNZOMBIE";
+function setPhase(phase) {
+    return { type: exports.GOTOPHASE, state: phase };
+}
+exports.setPhase = setPhase;
+function spawnPlayer() {
+    return { type: exports.SPAWNPLAYER };
+}
+exports.spawnPlayer = spawnPlayer;
+function spawnEnemey(pos) {
+    return { type: exports.SPAWNZOMBIE, pos: pos };
+}
+exports.spawnEnemey = spawnEnemey;
+
 
 /***/ })
 /******/ ]);
