@@ -30469,12 +30469,12 @@ var React = __webpack_require__(177);
 var Dom = __webpack_require__(193);
 var PIXI = __webpack_require__(279);
 var Data = __webpack_require__(170);
-var store = new Data.Store();
-store.dispatch({ type: Data.GOTOPHASE, phase: Data.Phase.Game });
+var renderer_1 = __webpack_require__(384);
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
     function App(props) {
         var _this = _super.call(this) || this;
+        _this.store = new Data.Store();
         document.addEventListener('contextmenu', function (e) { return event.preventDefault(); });
         document.body.style.cursor = "crosshair";
         return _this;
@@ -30491,7 +30491,7 @@ var App = /** @class */ (function (_super) {
         document.addEventListener('mousemove', function () {
         });
         document.addEventListener('keypress', function (e) {
-            store.dispatch(Data.keyPress(e.keyCode));
+            _this.store.dispatch(Data.keyPress(e.keyCode));
         });
         document.addEventListener('mouseup', function (e) {
         });
@@ -30509,7 +30509,7 @@ var App = /** @class */ (function (_super) {
             _this.graphics.lineTo(100, 100);
             _this.graphics.lineTo(50, 50);
             _this.graphics.endFill();
-            renderer.render(_this.stage);
+            renderer.render(renderer_1.getStage(_this.store, renderer));
             requestAnimationFrame(f);
         };
         f();
@@ -63936,6 +63936,38 @@ function keyPress(code) {
     return { type: exports.KEYPRESS, code: code };
 }
 exports.keyPress = keyPress;
+
+
+/***/ }),
+/* 383 */,
+/* 384 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var PIXI = __webpack_require__(279);
+var titleStage = new PIXI.Container();
+var stage = titleStage;
+var title = new PIXI.Text("ZOMBIE++", { fill: '#FF0000' });
+title.anchor.x = 0.5;
+title.anchor.y = 0.5;
+titleStage.addChild(title);
+function update(store, renderer) {
+    var state = store.getState();
+    switch (state.phase) {
+        default:
+            title.x = renderer.width / 2;
+            title.y = renderer.height / 2;
+            stage = titleStage;
+    }
+}
+exports.update = update;
+function getStage(store, renderer) {
+    update(store, renderer);
+    return stage;
+}
+exports.getStage = getStage;
 
 
 /***/ })

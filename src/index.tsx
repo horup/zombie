@@ -5,12 +5,12 @@ import * as Dom from 'react-dom';
 import * as PIXI from 'pixi.js';
 import {vec2} from 'gl-matrix';
 import * as Data from './data';
+import {getStage} from './renderer';
 
-let store = new Data.Store();
-store.dispatch({type:Data.GOTOPHASE, phase:Data.Phase.Game});
 
 class App extends React.Component<any, any>
 {
+    store = new Data.Store();
     graphics:PIXI.Graphics;
     stage:PIXI.Container;
     canvas:HTMLCanvasElement;
@@ -41,7 +41,7 @@ class App extends React.Component<any, any>
 
         document.addEventListener('keypress', (e)=>
         {
-            store.dispatch(Data.keyPress(e.keyCode));
+            this.store.dispatch(Data.keyPress(e.keyCode));
         });
 
         document.addEventListener('mouseup', (e) =>
@@ -65,7 +65,7 @@ class App extends React.Component<any, any>
             this.graphics.lineTo(100, 100);
             this.graphics.lineTo(50, 50);
             this.graphics.endFill();
-            renderer.render(this.stage);
+            renderer.render(getStage(this.store, renderer));
             requestAnimationFrame(f);
         };
 
