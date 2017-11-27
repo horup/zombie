@@ -1,6 +1,7 @@
-import { Phase, State, GOTOPHASE } from './index';
-
-export default (state:State = {phase:Phase.Title}, action:any):State=>
+import { State, GOTOPHASE } from './index';
+import { Phase } from './phase';
+let defaultState:State =  {phase:Phase.Title, bullet:{}, enemy:{}, entity:{}, player:{}, thing:{}, timer:0};
+export default (state:State = defaultState, action:any):State=>
 {
     switch (action.type)
     {

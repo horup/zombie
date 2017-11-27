@@ -41,6 +41,7 @@ class App extends React.Component<any, any>
 
         document.addEventListener('keypress', (e)=>
         {
+            store.dispatch(Data.keyPress(e.keyCode));
         });
 
         document.addEventListener('mouseup', (e) =>
