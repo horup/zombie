@@ -44,6 +44,11 @@ class App extends React.Component<any, any>
             this.store.dispatch(Data.keyDown(e.keyCode));
         });
 
+        document.addEventListener('keyup', (e)=>
+        {
+            this.store.dispatch(Data.keyUP(e.keyCode));
+        });
+
         document.addEventListener('mouseup', (e) =>
         {
         });

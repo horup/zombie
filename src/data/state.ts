@@ -12,4 +12,6 @@ export interface State
     enemy:List<Enemy>;
     bullet:List<Bullet>;
     timer:number;
+    width:number;
+    height:number;
 }

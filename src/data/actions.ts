@@ -4,6 +4,7 @@ export const GOTOPHASE = "GOTOPHASE";
 export const SPAWNPLAYER = "SPAWNPLAYER";
 export const SPAWNZOMBIE = "SPAWNZOMBIE";
 export const KEYDOWN = "KEYDOWN";
+export const KEYUP = "KEYUP";
 export const TICK = "TICK";
 
 export function setPhase(phase:Phase)
@@ -24,6 +25,11 @@ export function spawnEnemey(pos:vec2)
 export function keyDown(code:number)
 {
     return {type:KEYDOWN, code:code};
+}
+
+export function keyUP(code:number)
+{
+    return {type:KEYUP, code:code};
 }
 
 export function tick()

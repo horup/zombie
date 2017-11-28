@@ -2,7 +2,7 @@ import { State, GOTOPHASE, KEYDOWN, TICK } from './index';
 import { Phase } from './phase';
 import { Player, Entity, Thing } from './entities';
 import { vec2 } from 'gl-matrix';
-let defaultState:State =  {phase:Phase.Title, bullet:{}, enemy:{}, entity:{}, player:{}, thing:{}, timer:0};
+let defaultState:State =  {phase:Phase.Title, bullet:{}, enemy:{}, entity:{}, player:{}, thing:{}, timer:0, width:640, height:480};
 
 function count(obj:any)
 {
@@ -22,7 +22,7 @@ export default (state:State = defaultState, action:any):State=>
             if (state.phase == Phase.Title)
             {
                 let e:Entity = {id:count(state.entity)};
-                let t:Thing = {id:count(state.thing), entity:e.id, alive:true, pos:vec2.create(), radius:1.0};
+                let t:Thing = {id:count(state.thing), entity:e.id, alive:true, pos:vec2.fromValues(state.width /2, state.height / 2), radius:1.0};
                 let p:Player = {id:count(state.player), entity:e.id};
                 let newstate = {...state, ...{phase:Phase.Game}};
                 newstate.entity[e.id] = e;
@@ -30,6 +30,10 @@ export default (state:State = defaultState, action:any):State=>
                 newstate.player[p.id] = p;
 
                 return newstate;
+            }
+            else if (state.phase == Phase.Game)
+            {
+                
             }
 
             return state;
