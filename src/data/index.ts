@@ -1,5 +1,6 @@
 import { State } from './state';
 import Reducer from './reducer';
+import { TICK } from './actions';
 
 export * from './phase';
 export * from './actions';
@@ -21,6 +22,10 @@ export class Store
     dispatch(action:any)
     {
         this.state = Reducer(this.state, action);
-        console.log(JSON.stringify(this.state));
+        if (action.type != TICK)
+        {
+            console.log(JSON.stringify(action));
+            console.log(JSON.stringify(this.state));
+        }
     }
 }

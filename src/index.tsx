@@ -39,9 +39,9 @@ class App extends React.Component<any, any>
         {
         });
 
-        document.addEventListener('keypress', (e)=>
+        document.addEventListener('keydown', (e)=>
         {
-            this.store.dispatch(Data.keyPress(e.keyCode));
+            this.store.dispatch(Data.keyDown(e.keyCode));
         });
 
         document.addEventListener('mouseup', (e) =>
@@ -58,6 +58,7 @@ class App extends React.Component<any, any>
 
         let f = () =>
         {
+            this.store.dispatch(Data.tick());
             this.graphics.beginFill(0xFF3300);
             this.graphics.lineStyle(4, 0xffd900, 1);
             this.graphics.moveTo(50,50);

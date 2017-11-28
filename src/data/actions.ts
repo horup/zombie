@@ -3,7 +3,8 @@ import { Phase } from './index';
 export const GOTOPHASE = "GOTOPHASE";
 export const SPAWNPLAYER = "SPAWNPLAYER";
 export const SPAWNZOMBIE = "SPAWNZOMBIE";
-export const KEYPRESS = "KEYPRESS";
+export const KEYDOWN = "KEYDOWN";
+export const TICK = "TICK";
 
 export function setPhase(phase:Phase)
 {
@@ -20,7 +21,12 @@ export function spawnEnemey(pos:vec2)
     return {type:SPAWNZOMBIE, pos:pos};
 }
 
-export function keyPress(code:number)
+export function keyDown(code:number)
 {
-    return {type:KEYPRESS, code:code};
+    return {type:KEYDOWN, code:code};
+}
+
+export function tick()
+{
+    return {type:TICK};
 }
