@@ -6,11 +6,11 @@ type List<T> = {[id:number]:T};
 export interface State
 {
     phase:Phase;
-    entity:List<Entity>;
-    thing:List<Thing>;
-    player:List<Player>;
-    enemy:List<Enemy>;
-    bullet:List<Bullet>;
+    entities:List<Entity>;
+    things:List<Thing>;
+    players:List<Player>;
+    enemies:List<Enemy>;
+    bullets:List<Bullet>;
     timer:number;
     width:number;
     height:number;

@@ -18,6 +18,8 @@ export interface Player
 {
     id:number;
     entity:number;
+    dir:vec2;
+    trigger:boolean;
 }
 
 export interface Bullet

@@ -31,9 +31,9 @@ export function update(store:Data.Store, renderer:PIXI.SystemRenderer)
             timer.text = "" + state.timer;
             stage = gameStage;
 
-            for (let thingid in state.thing)
+            for (let thingid in state.things)
             {
-                let thing = state.thing[thingid];
+                let thing = state.things[thingid];
                 let sprite = things.children.filter(c=>c.name == thingid.toString() == null)[0] as PIXI.Sprite;
                 if (sprite == undefined)
                 {

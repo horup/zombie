@@ -66339,7 +66339,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var index_1 = __webpack_require__(87);
 var phase_1 = __webpack_require__(173);
 var gl_matrix_1 = __webpack_require__(388);
-var defaultState = { phase: phase_1.Phase.Title, bullet: {}, enemy: {}, entity: {}, player: {}, thing: {}, timer: 0, width: 640, height: 480 };
+var defaultState = { phase: phase_1.Phase.Title, bullets: {}, enemies: {}, entities: {}, players: {}, things: {}, timer: 0, width: 640, height: 480 };
 function count(obj) {
     return Object.keys(obj).length;
 }
@@ -66353,13 +66353,13 @@ exports.default = function (state, action) {
         case index_1.KEYDOWN:
             {
                 if (state.phase == phase_1.Phase.Title) {
-                    var e = { id: count(state.entity) };
-                    var t = { id: count(state.thing), entity: e.id, alive: true, pos: gl_matrix_1.vec2.fromValues(state.width / 2, state.height / 2), radius: 1.0 };
-                    var p = { id: count(state.player), entity: e.id };
+                    var e = { id: count(state.entities) };
+                    var t = { id: count(state.things), entity: e.id, alive: true, pos: gl_matrix_1.vec2.fromValues(state.width / 2, state.height / 2), radius: 1.0 };
+                    var p = { id: count(state.players), entity: e.id, dir: gl_matrix_1.vec2.create(), trigger: false };
                     var newstate = __assign({}, state, { phase: phase_1.Phase.Game });
-                    newstate.entity[e.id] = e;
-                    newstate.thing[t.id] = t;
-                    newstate.player[p.id] = p;
+                    newstate.entities[e.id] = e;
+                    newstate.things[t.id] = t;
+                    newstate.players[p.id] = p;
                     return newstate;
                 }
                 else if (state.phase == phase_1.Phase.Game) {
@@ -66369,7 +66369,13 @@ exports.default = function (state, action) {
         case index_1.TICK:
             {
                 if (state.phase == phase_1.Phase.Game) {
-                    return __assign({}, state, { timer: state.timer + 1 });
+                    var players = state.players;
+                    var things = state.things;
+                    var timer = state.timer + 1;
+                    if (count(state.players) > 0) {
+                        var player = __assign({}, state.players[0]);
+                    }
+                    return __assign({}, state, { timer: timer }, { things: things }, { players: players });
                 }
                 return state;
             }
@@ -70519,7 +70525,7 @@ function update(store, renderer) {
                 timer.text = "" + state.timer;
                 stage = gameStage;
                 var _loop_1 = function (thingid) {
-                    var thing = state.thing[thingid];
+                    var thing = state.things[thingid];
                     var sprite = things.children.filter(function (c) { return c.name == thingid.toString() == null; })[0];
                     if (sprite == undefined) {
                         sprite = PIXI.Sprite.fromImage(__webpack_require__(184));
@@ -70530,7 +70536,7 @@ function update(store, renderer) {
                     sprite.x = thing.pos[0];
                     sprite.y = thing.pos[1];
                 };
-                for (var thingid in state.thing) {
+                for (var thingid in state.things) {
                     _loop_1(thingid);
                 }
                 break;
