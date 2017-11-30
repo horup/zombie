@@ -5,12 +5,12 @@ import * as Dom from 'react-dom';
 import * as PIXI from 'pixi.js';
 import {vec2} from 'gl-matrix';
 import * as Data from './data';
-import {getStage} from './renderer';
+import {getStage} from './renderer'; 
 
 
 class App extends React.Component<any, any>
 {
-    store = new Data.Store();
+    state:Data.State = new Data.State();
     graphics:PIXI.Graphics;
     stage:PIXI.Container;
     canvas:HTMLCanvasElement;

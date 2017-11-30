@@ -1,31 +1,21 @@
-import { State } from './state';
-import Reducer from './reducer';
-import { TICK } from './actions';
+import { Entity, Enemy, Player } from "./entities";
+import { Thing } from "./entities";
 
-export * from './phase';
-export * from './actions';
-export * from "./state";
-
-export class Store
+export enum Phase
 {
-    state:State = undefined;
-    constructor()
-    {
-        this.dispatch({type:undefined});
-    }
+    Title,
+    Game,
+    Dead,
+    Highscore
+}
 
-    getState()
-    {
-        return this.state;
-    }
-    
-    dispatch(action:any)
-    {
-        this.state = Reducer(this.state, action);
-        if (action.type != TICK)
-        {
-            console.log(JSON.stringify(action));
-            console.log(JSON.stringify(this.state));
-        }
-    }
+export class State
+{
+    nextId:number;
+    timer = 0;
+    phase = Phase.Title;
+    entities = new Map<number, Entity>();
+    things = new Map<number, Thing>();
+    players = new Map<number, Player>();
+    enemies = new Map<number, Enemy>();
 }

@@ -1,35 +1,51 @@
 import {vec2} from 'gl-matrix';
+import { State } from './index';
 
-export interface Entity
+export class Entity
 {
     id:number;
+    constructor(state:State)
+    {
+        this.id = state.nextId++;
+        state.entities.set(this.id, this);
+    }
 }
 
-export interface Thing
+export class Thing
 {
-    id:number;
     entity:number;
     pos:vec2;
     radius:number;
-    alive:boolean;
+
+    constructor(entity:number, state:State)
+    {
+        this.entity = entity;
+        this.pos = vec2.create();
+        this.radius = 1.0;
+        state.things.set(entity, this);
+    }
 }
 
-export interface Player
+export class Player
 {
-    id:number;
     entity:number;
-    dir:vec2;
-    trigger:boolean;
+    dir:vec2 = vec2.create();
+    trigger:boolean = false;
+
+    constructor(entity:number, state:State)
+    {
+        this.entity = entity;
+        state.players.set(this.entity, this);
+    }
 }
 
-export interface Bullet
+export class Enemy
 {
-    id:number;
     entity:number;
-}
 
-export interface Enemy
-{
-    id:number;
-    entity:number;
+    constructor(entity:number, state:State)
+    {
+        this.entity = entity;
+        state.enemies.set(this.entity, this);
+    }
 }
