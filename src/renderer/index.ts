@@ -21,7 +21,7 @@ gameStage.addChild(things);
 
 export function update(store:Data.Store, renderer:PIXI.SystemRenderer)
 {
-    let state = store.getState();
+    let state = store.state;
     switch (state.phase)
     {
         case Data.Phase.Game:

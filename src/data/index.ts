@@ -1,5 +1,6 @@
 import { Entity, Enemy, Player } from "./entities";
 import { Thing } from "./entities";
+import { Command } from "./commands";
 
 export enum Phase
 {
@@ -18,4 +19,14 @@ export class State
     things = new Map<number, Thing>();
     players = new Map<number, Player>();
     enemies = new Map<number, Enemy>();
+}
+
+export class Store
+{
+    state:State = new State();
+    
+    dispatch(command:Command)
+    {
+        this.state = command.execute(this.state);
+    }
 }

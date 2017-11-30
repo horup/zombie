@@ -6,11 +6,12 @@ import * as PIXI from 'pixi.js';
 import {vec2} from 'gl-matrix';
 import * as Data from './data';
 import {getStage} from './renderer'; 
-
+import { Keydown, Keyup } from './data/commands';
+import { Tick } from './data/commands';
 
 class App extends React.Component<any, any>
 {
-    state:Data.State = new Data.State();
+    store = new Data.Store();
     graphics:PIXI.Graphics;
     stage:PIXI.Container;
     canvas:HTMLCanvasElement;
@@ -24,6 +25,7 @@ class App extends React.Component<any, any>
 
     componentDidMount()
     {
+        let store = this.store;
         this.stage = new PIXI.Container();
         let renderer = PIXI.autoDetectRenderer(640, 480, {view: this.canvas, antialias:false}); 
         let interaction = new PIXI.interaction.InteractionManager(renderer);
@@ -41,12 +43,12 @@ class App extends React.Component<any, any>
 
         document.addEventListener('keydown', (e)=>
         {
-            this.store.dispatch(Data.keyDown(e.keyCode));
+            this.store.dispatch(new Keydown(e.keyCode));
         });
 
         document.addEventListener('keyup', (e)=>
         {
-            this.store.dispatch(Data.keyUP(e.keyCode));
+            this.store.dispatch(new Keyup(e.keyCode));
         });
 
         document.addEventListener('mouseup', (e) =>
@@ -63,7 +65,7 @@ class App extends React.Component<any, any>
 
         let f = () =>
         {
-            this.store.dispatch(Data.tick());
+            this.store.dispatch(new Tick());
             this.graphics.beginFill(0xFF3300);
             this.graphics.lineStyle(4, 0xffd900, 1);
             this.graphics.moveTo(50,50);
